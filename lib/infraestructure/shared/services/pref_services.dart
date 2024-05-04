@@ -13,7 +13,9 @@ class PrefServices {
 }
 
 enum PrefString {
-  token('token');
+  token('token'),
+  infoJson('infoJson');
+
 
   final String value;
   const PrefString(this.value);

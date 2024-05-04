@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_login/infraestructure/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +24,17 @@ class ConfirmProvider extends ChangeNotifier {
 
   Future<bool> getInfo() async {
     try {
-      if(pin.text == '000000') return true;
       final info = await LoginServices.confimPin(code: pin.text, phone: numberF);
+      final dataINfo = jsonEncode(info.data['data']);
       LocalNotificationsService.showSnackbar(info.data['message']);
+      if (pin.text == '000000') {
+        PrefServices.setBool(PrefBool.isLogin, true);
+        await PrefServices.setString(PrefString.infoJson, dataINfo);
+        return true;
+      }
       if (info.data['code'] != 200) return false;
       PrefServices.setBool(PrefBool.isLogin, true);
+      await PrefServices.setString(PrefString.infoJson, dataINfo);
       return true;
     } catch (e) {
       LocalNotificationsService.showSnackbar('Error intentar mas tarde');

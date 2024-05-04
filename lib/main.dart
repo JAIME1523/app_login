@@ -8,7 +8,6 @@ import 'infraestructure/shared/shared.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await PrefServices.configurePref();
   await ApiService.configureDio();
   await ApiService.getToken();
