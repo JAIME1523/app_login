@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                       MaterialPageRoute(builder: (_) => const LoginPage()),
                       (_) => false);
                 },
-                child: Text('Cerrar sesion'))
+                child: const Text('Cerrar sesion'))
           ],
         ),
       ),
