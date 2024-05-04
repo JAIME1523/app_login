@@ -5,10 +5,9 @@ class ApiService {
   static final Dio _dio = Dio();
 
   static Future configureDio() async {
+    
     _dio.options.baseUrl = "https://api4sun.dudewhereismy.mx/sosroad/";
-    await _getToken();
     _dio.options.headers = {
-      'Platform': 'default',
       'Authorization': '${PrefServices.getString(PrefString.token)}',
     };
     // _dio.options.validateStatus = (valie) =>  true;
@@ -27,6 +26,7 @@ class ApiService {
   static Future<Response> httpPost(
       String path, Map<String, dynamic>? data) async {
     try {
+      print(PrefServices.getString(PrefString.token));
       final resp = await _dio.post(path, queryParameters: data);
       return resp;
     } catch (e) {
@@ -34,11 +34,12 @@ class ApiService {
     }
   }
 
-  static _getToken() async {
+  static getToken() async {
     final resp = await _dio.post('token?keycode=Flutt3rTest');
     if (resp.statusCode == 200) {
       await PrefServices.setString(
           PrefString.token, resp.data['data']['Authorized']);
     }
+    await configureDio();
   }
 }

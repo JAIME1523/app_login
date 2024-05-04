@@ -8,8 +8,10 @@ import 'infraestructure/shared/shared.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await PrefServices.configurePref();
   await ApiService.configureDio();
+  await ApiService.getToken();
   runApp(const MainApp());
 }
 
@@ -22,6 +24,8 @@ class MainApp extends StatelessWidget {
         theme: Apptheme().getTheme(),
         debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: LocalNotificationsService.messagerKey,
-        home: PrefServices.getBool(PrefBool.isLogin)== true? const HomePage(): const LoginPage());
+        home: PrefServices.getBool(PrefBool.isLogin) == true
+            ? const HomePage()
+            : const LoginPage());
   }
 }

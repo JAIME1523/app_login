@@ -6,9 +6,9 @@ class LoginServices {
     final data = {
       "phone": phone,
       "type": "A",
-      "token": 'asd',
+      "token": 'No Importa para el test',
     };
-    return ApiService.httpPost('/phone', data);
+    return await ApiService.httpPost('/phone', data);
   }
 
   static Future<Response> confimPin(
